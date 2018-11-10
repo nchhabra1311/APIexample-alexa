@@ -1,0 +1,41 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "fortune cookie",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "askIntent",
+                    "slots": [],
+                    "samples": [
+                        "Alexa ask fortune cookie for my fortune",
+                        "my fortune",
+                        "what's my fortune",
+                        "what's my fortune today",
+                        "ask fortune cookie to tell me fortune"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

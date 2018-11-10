@@ -1,0 +1,74 @@
+
+'use strict';
+const Alexa = require('alexa-sdk');
+var http = require('http');
+const APP_ID = '#';
+
+const handlers = {
+    'LaunchRequest': function () {
+        this.emit('askIntent');
+    },
+    
+    'askIntent': function() {
+        
+         var query = null;
+     httpGet(query,  (theResult) => {
+                console.log("sent     : " + query);
+                console.log("received : " + theResult);
+                const theFact = JSON.parse(theResult);
+                                
+                const speechOutput = theFact['slip']['advice'];
+                //this.response.cardRenderer(SKILL_NAME, theFact);
+                this.response.speak(speechOutput);
+                this.emit(':responseReady');
+            });
+        
+    },
+    
+    'AMAZON.HelpIntent': function () {
+       this.emit(":tell","ask fortune cookie to open");
+        
+    },
+    'AMAZON.CancelIntent': function () {
+       this.emit(":tell" , "fortune cookie says .. goodbye");
+    },
+    'AMAZON.StopIntent': function () {
+      this.emit(":tell" , "fortune cookie says .. goodbye");
+    },
+    'Unhandled' : function() {
+        this.emit(":ask" ,"This shouldn't have happened , ask fortune cookie . what's my fortune or exit");
+    }
+};
+
+function httpGet(query, callback) {
+    var options = {
+        host: 'api.adviceslip.com',
+        path: '/' + 'advice',
+        method: 'GET',
+    };
+
+    var req = http.request(options, res => {
+        res.setEncoding('utf8');
+        var responseString = "";
+        
+        //accept incoming data asynchronously
+        res.on('data', chunk => {
+            responseString = responseString + chunk;
+        });
+        
+        //return the data when streaming is complete
+        res.on('end', () => {
+            console.log(responseString);
+            callback(responseString);
+        });
+
+    });
+    req.end();
+}
+
+exports.handler = function (event, context, callback) {
+    const alexa = Alexa.handler(event, context, callback);
+    alexa.APP_ID = APP_ID;
+    alexa.registerHandlers(handlers);
+    alexa.execute();
+};

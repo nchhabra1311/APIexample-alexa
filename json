@@ -31,7 +31,9 @@
                         "my fortune",
                         "what's my fortune",
                         "what's my fortune today",
-                        "ask fortune cookie to tell me fortune"
+                        "ask fortune cookie to tell me fortune",
+			"How's my luck today",
+			"Will I be lucky today"
                     ]
                 }
             ],
